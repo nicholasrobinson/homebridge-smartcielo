@@ -4,7 +4,7 @@ module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
     HomnebridgeAPI = homebridge;
-    homebridge.registerAccessory("homebridge-fakethermostat", "Thermostat", Thermostat);
+    homebridge.registerAccessory("homebridge-dummy-thermostat", "Thermostat", Thermostat);
 };
 
 function Thermostat(log, config) {

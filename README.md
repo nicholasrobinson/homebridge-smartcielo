@@ -1,9 +1,9 @@
-# homebridge-fakethermostat
+# homebridge-dummy-thermostat
 Plugin for homebridge to create a fake thermostat accessory
 ## Installation
 
 1. Install [homebridge](https://github.com/nfarina/homebridge#installation-details)
-2. Install this plugin: `npm install -g homebridge-fakethermostat`
+2. Install this plugin: `npm install -g homebridge-dummy-thermostat`
 3. Edit your `config.json` file (See below).
 
 ## Configuration example
