@@ -1,0 +1,41 @@
+{
+    "pluginAlias": "Thermostat",
+    "pluginType": "accessory",
+    "singular": false,
+    "schema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "title": "Name",
+                "type": "string",
+                "required": true,
+                "default": "Thermostat",
+                "description": "The name that will appear in the Home App and your homebridge log."
+            },
+            "temperatureDisplayUnits": {
+                "title": "temperatureDisplayUnits",
+                "type": "string",
+                "default": "0",
+                "oneOf": [
+                    { "title": "Celsius", "enum": ["0"] },
+                    { "title": "Fahrenheit", "enum": ["1"] }
+                    ],
+                "description": "Whether you want °C or °F for your units."
+            },
+            "model": {
+                "title": "model",
+                "type": "string",
+                "required": false,
+                "placeholder": "Dummy",
+                "description": "The Model that will appears for your accessory in the Home app."
+            },
+            "manufacturer": {
+                "title": "manufacturer",
+                "type": "string",
+                "required": false,
+                "placeholder": "Dummy",
+                "description": "The Manufacturer that will appears for your accessory in the Home app."
+            }
+        }
+    }
+}
