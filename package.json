@@ -1,26 +1,27 @@
 {
-  "name": "homebridge-dummy-thermostat",
-  "version": "0.0.3",
-  "description": "Plugin for homebridge to create a fake thermostat accessory",
+  "name": "homebridge-smartcielo",
+  "version": "0.0.1",
+  "description": "Smartcielo (MRCOOL) plug-in for Homebridge using the smartcielo API.",
   "main": "index.js",
   "keywords": [
     "homebridge-plugin"
   ],
-  "author": "David Borzek",
-  "license": "ISC",
+  "author": "Nicholas Robinson",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/x1zor/homebridge-dummy-thermostat.git"
+    "url": "git+https://github.com/nicholasrobinson/homebridge-smartcielo.git"
   },
   "engines": {
     "homebridge": ">=0.2.0",
     "node": ">=0.12.0"
   },
   "dependencies": {
-    "node-persist": "^2.1.0"
+    "node-persist": "^2.1.0",
+    "node-smartcielo": "0.0.1"
   },
   "bugs": {
-    "url": "https://github.com/x1zor/homebridge-dummy-thermostat/issues"
+    "url": "https://github.com/nicholasrobinson/homebridge-smartcielo/issues"
   },
-  "homepage": "https://github.com/x1zor/homebridge-dummy-thermostat#readme"
+  "homepage": "https://github.com/nicholasrobinson/homebridge-smartcielo#readme"
 }
