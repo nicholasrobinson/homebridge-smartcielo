@@ -1,10 +1,13 @@
 {
   "name": "homebridge-smartcielo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Smartcielo (MRCOOL) plug-in for Homebridge using the smartcielo API.",
   "main": "index.js",
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "MRCOOL",
+    "smartcielo",
+    "SmartHVAC"
   ],
   "author": "Nicholas Robinson",
   "license": "MIT",
