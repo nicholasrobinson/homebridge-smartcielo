@@ -2,7 +2,7 @@
 
 by Nicholas Robinson
 
-Smartcielo (MRCOOL) plug-in for [Homebridge](https://github.com/nfarina/homebridge) using the smartcielo API.
+Smartcielo (MRCOOL) plug-in for [Homebridge](https://github.com/nfarina/homebridge) using [node-smartcielo](https://github.com/nicholasrobinson/node-smartcielo).
 
 Integrate your MRCOOL AC into your HomeKit system.
 
