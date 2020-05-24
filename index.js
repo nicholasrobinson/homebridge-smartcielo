@@ -16,7 +16,7 @@ function Thermostat(log, config) {
     this.temperatureDisplayUnits = config.temperatureDisplayUnits || 1;
     this.minTemperature = config.maxTemperature || 62;
     this.maxTemperature = config.maxTemperature || 86;
-    this.commandDelay = config.commandDelay || 5;
+    this.commandDelay = config.commandDelay || 10;
     this.service = new Service.Thermostat(this.name);
     this.hvac = new SmartCielo(config.username, config.password, config.ip,
         commandedState => {
@@ -44,28 +44,43 @@ Thermostat.prototype.setTargetHeatingCoolingState = function (state, cb) {
     const mode = convertHeatingCoolingStateToMode(state);
     this.log.debug('setTargetHeatingCoolingState', mode);
     if (mode == 'off') {
-        this.hvac.sendPowerOff(_ => {
-            this.log.debug('Sent Command', 'sendPowerOff');
-        }, err => {
-            this.log.error('sendPowerOff Error', err);
-        });
+        if (this.hvac.getPower() === 'off') {
+            this.log.debug('Skipping Command');
+        } else {
+            this.hvac.sendPowerOff(_ => {
+                this.log.debug('Sent Command', 'sendPowerOff');
+            }, err => {
+                this.log.error('sendPowerOff Error', err);
+            });
+        }
     } else {
-        this.hvac.sendMode(mode, _ => {
-            this.log.debug('Sent Command', 'sendMode', mode);
-            // TODO: Investigate closing the loop and removing hard-coded delay.
-            if (this.hvac.getPower() === 'off') {
-                // Note: Potentially there is a way to pass a delay through to the underlying socket queue.
-                setTimeout(() => {
-                    this.hvac.sendPowerOn(_ => {
-                        this.log.debug('Sent Command', 'sendPowerOn');
+        if (this.hvac.getPower() === 'on' && this.hvac.getMode() === mode) {
+            this.log.debug('Skipping Command');
+        } else {
+            const sendModeHelper = (() => {
+                return () => {
+                    this.hvac.sendMode(mode, _ => {
+                        this.log.debug('Sent Command', 'sendMode', mode);
                     }, err => {
-                        this.log.error('sendPowerOn Error', err);
+                        this.log.error('sendMode Error', err);
                     });
-                }, this.commandDelay * 1000);
+                }
+            })();
+            if (this.hvac.getPower() === 'off') {
+                this.hvac.sendPowerOn(_ => {
+                    this.log.debug('Sent Command', 'sendPowerOn');
+                    // TODO: Investigate closing the loop and removing hard-coded delay.
+                    // Note: Potentially there is a way to poll the power until it is updated before sending mode.
+                    setTimeout(() => {
+                        sendModeHelper();
+                    }, this.commandDelay * 1000);
+                }, err => {
+                    this.log.error('sendPowerOn Error', err);
+                });
+            } else {
+                sendModeHelper();
             }
-        }, err => {
-            this.log.error('sendMode Error', err);
-        });
+        }
     }
     cb();
 };
@@ -85,11 +100,15 @@ Thermostat.prototype.getTargetTemperature = function (cb) {
 Thermostat.prototype.setTargetTemperature = function (temperature, cb) {
     const temperatureInFahrenheit = convertCelsiusToFahrenheit(temperature, this.minTemperature, this.maxTemperature);
     this.log.debug('setTargetTemperature', temperatureInFahrenheit);
-    this.hvac.sendTemperature(temperatureInFahrenheit, _ => {
-        this.log.debug('Sent Command', 'sendTemperature', temperatureInFahrenheit);
-    }, err => {
-        this.log.error('sendTemperature Error', err);
-    });
+    if (this.hvac.getTemperature() == temperature) {
+        this.log.debug('Skipping Command');
+    } else {
+        this.hvac.sendTemperature(temperatureInFahrenheit, _ => {
+            this.log.debug('Sent Command', 'sendTemperature', temperatureInFahrenheit);
+        }, err => {
+            this.log.error('sendTemperature Error', err);
+        });
+    }
     cb();
 };
 
