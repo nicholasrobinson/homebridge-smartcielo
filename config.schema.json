@@ -1,0 +1,99 @@
+{
+    "pluginAlias": "SmartCieloThermostat",
+    "pluginType": "accessory",
+    "singular": false,
+    "schema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "title": "Name",
+                "type": "string",
+                "required": true,
+                "default": "MRCOOL",
+                "description": "The name that will appear in the Home App and your homebridge log."
+            },
+            "username": {
+                "title": "Username",
+                "type": "string",
+                "required": true,
+                "placeholder": "username",
+                "description": "The username used to login to smartcielo/SmartHVAC"
+            },
+            "password": {
+                "title": "Password",
+                "type": "string",
+                "required": true,
+                "placeholder": "password",
+                "description": "The password used to login to smartcielo/SmartHVAC"
+            },
+            "ip": {
+                "title": "IP Address",
+                "type": "string",
+                "required": true,
+                "placeholder": "ip_address",
+                "description": "The public IP address used to login to smartcielo/SmartHVAC"
+            },
+            "model": {
+                "title": "Model",
+                "type": "string",
+                "required": false,
+                "default": "DefaultModel",
+                "description": "The Model that will appears for your accessory in the Home app."
+            },
+            "manufacturer": {
+                "title": "Manufacturer",
+                "type": "string",
+                "required": false,
+                "default": "DefaultManufacturer",
+                "description": "The Manufacturer that will appears for your accessory in the Home app."
+            },
+            "temperatureDisplayUnits": {
+                "title": "Temperature Display Units",
+                "type": "string",
+                "default": "1",
+                "oneOf": [
+                    {
+                        "title": "Celsius",
+                        "enum": [
+                            "0"
+                        ]
+                    },
+                    {
+                        "title": "Fahrenheit",
+                        "enum": [
+                            "1"
+                        ]
+                    }
+                ],
+                "description": "Whether you want °C or °F for your units."
+            },
+            "minTemperature": {
+                "title": "Minimum Temperature",
+                "type": "integer",
+                "minimum": 62,
+                "maximum": 86,
+                "required": true,
+                "default": 62,
+                "description": "The minimum thermostat temperature."
+            },
+            "maxTemperature": {
+                "title": "Maximum Temperature",
+                "type": "integer",
+                "minimum": 62,
+                "maximum": 86,
+                "required": true,
+                "default": 86,
+                "description": "The maximum thermostat temperature."
+            },
+            "commandDelay": {
+                "title": "Chained Command Delay",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 30,
+                "required": true,
+                "default": 10,
+                "description": "The delay between sending power on and sending the mode."
+            }
+        }
+    }
+}
