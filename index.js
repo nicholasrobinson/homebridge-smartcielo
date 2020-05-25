@@ -24,10 +24,17 @@ function Thermostat(log, config) {
         },
         roomTemperature => {
             this.log.debug('Updated Room Temperature:', roomTemperature);
+        },
+        err => {
+            this.log.error(new Error('Negotiation/Ping Failed: Please Check Connection/Credentials.'));
+            this.log.error(err);
         });
 }
 
 Thermostat.prototype.getCurrentHeatingCoolingState = function (cb) {
+    if (this.hvac.connectionError) {
+        return;
+    }
     const mode = getModeHelper(this.hvac.getPower(), this.hvac.getMode());
     this.log.debug('getCurrentHeatingCoolingState', mode);
     const state = convertModeToHeatingCoolingState(mode);
@@ -35,12 +42,18 @@ Thermostat.prototype.getCurrentHeatingCoolingState = function (cb) {
 };
 
 Thermostat.prototype.getTargetHeatingCoolingState = function (cb) {
+    if (this.hvac.connectionError) {
+        return;
+    }
     const mode = getModeHelper(this.hvac.getPower(), this.hvac.getMode());
     this.log.debug('getTargetHeatingCoolingState', mode);
     cb(null, convertModeToHeatingCoolingState(mode));
 };
 
 Thermostat.prototype.setTargetHeatingCoolingState = function (state, cb) {
+    if (this.hvac.connectionError) {
+        return;
+    }
     const mode = convertHeatingCoolingStateToMode(state);
     this.log.debug('setTargetHeatingCoolingState', mode);
     if (mode == 'off') {
@@ -86,18 +99,27 @@ Thermostat.prototype.setTargetHeatingCoolingState = function (state, cb) {
 };
 
 Thermostat.prototype.getCurrentTemperature = function (cb) {
+    if (this.hvac.connectionError) {
+        return;
+    }
     const temperature = this.hvac.getRoomTemperature();
     this.log.debug('getCurrentTemperature', temperature);
     cb(null, convertFahrenheitToCelsius(temperature));
 };
 
 Thermostat.prototype.getTargetTemperature = function (cb) {
+    if (this.hvac.connectionError) {
+        return;
+    }
     const temperature = this.hvac.getTemperature();
     this.log.debug('getTargetTemperature', temperature);
     cb(null, convertFahrenheitToCelsius(temperature));
 };
 
 Thermostat.prototype.setTargetTemperature = function (temperature, cb) {
+    if (this.hvac.connectionError) {
+        return;
+    }
     const temperatureInFahrenheit = convertCelsiusToFahrenheit(temperature, this.minTemperature, this.maxTemperature);
     this.log.debug('setTargetTemperature', temperatureInFahrenheit);
     if (this.hvac.getTemperature() == temperature) {
@@ -113,11 +135,17 @@ Thermostat.prototype.setTargetTemperature = function (temperature, cb) {
 };
 
 Thermostat.prototype.getTemperatureDisplayUnits = function (cb) {
+    if (this.hvac.connectionError) {
+        return;
+    }
     this.log.debug('getTemperatureDisplayUnits', this.temperatureDisplayUnits);
     cb(null, this.temperatureDisplayUnits);
 };
 
 Thermostat.prototype.setTemperatureDisplayUnits = function (displayUnits, cb) {
+    if (this.hvac.connectionError) {
+        return;
+    }
     this.log.debug('setTemperatureDisplayUnits', displayUnits);
     this.temperatureDisplayUnits = displayUnits;
     cb();
