@@ -30,7 +30,7 @@ Configuration sample (edit `~/.homebridge/config.json`):
 ```json
 "accessories": [
      {
-       "accessory": "SmartCielo",
+       "accessory": "SmartCieloThermostat",
        "name": "SmartCielo",
        "username": "<SMARTCIELO_USERNAME>",
        "password": "<SMARTCIELO_PASSWORD>",
