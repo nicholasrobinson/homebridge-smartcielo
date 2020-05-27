@@ -6,6 +6,7 @@ Smartcielo (MRCOOL) plug-in for [Homebridge](https://github.com/nfarina/homebrid
 
 Integrate your MRCOOL AC into your HomeKit system.
 
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
 [![mit license](https://badgen.net/badge/license/MIT/red)](https://github.com/nicholasrobinson/homebridge-smartcielo/blob/master/LICENSE)
 [![npm](https://badgen.net/npm/v/homebridge-smartcielo)](https://www.npmjs.com/package/homebridge-smartcielo)
 [![npm](https://badgen.net/npm/dt/homebridge-smartcielo)](https://www.npmjs.com/package/homebridge-smartcielo)
