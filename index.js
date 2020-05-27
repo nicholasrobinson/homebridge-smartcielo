@@ -24,9 +24,9 @@ function Thermostat(log, config) {
         },
         roomTemperature => {
             this.log.debug('Updated Room Temperature:', roomTemperature);
+            this.log.info('Room temperature updated to ' + roomTemperature + ' °F / ' + convertFahrenheitToCelsius(roomTemperature) + ' °C');
         },
         err => {
-            this.log.error(new Error('Negotiation/Ping Failed: Please Check Connection/Credentials.'));
             this.log.error(err);
         });
 }
@@ -60,6 +60,7 @@ Thermostat.prototype.setTargetHeatingCoolingState = function (state, cb) {
         if (this.hvac.getPower() === 'off') {
             this.log.debug('Skipping Command');
         } else {
+            this.log.info('Sending power off');
             this.hvac.sendPowerOff(_ => {
                 this.log.debug('Sent Command', 'sendPowerOff');
             }, err => {
@@ -72,6 +73,7 @@ Thermostat.prototype.setTargetHeatingCoolingState = function (state, cb) {
         } else {
             const sendModeHelper = (() => {
                 return () => {
+                    this.log.info('Setting mode to ' + mode);
                     this.hvac.sendMode(mode, _ => {
                         this.log.debug('Sent Command', 'sendMode', mode);
                     }, err => {
@@ -80,6 +82,7 @@ Thermostat.prototype.setTargetHeatingCoolingState = function (state, cb) {
                 }
             })();
             if (this.hvac.getPower() === 'off') {
+                this.log.info('Sending power on');
                 this.hvac.sendPowerOn(_ => {
                     this.log.debug('Sent Command', 'sendPowerOn');
                     // TODO: Investigate closing the loop and removing hard-coded delay.
@@ -125,6 +128,7 @@ Thermostat.prototype.setTargetTemperature = function (temperature, cb) {
     if (this.hvac.getTemperature() == temperature) {
         this.log.debug('Skipping Command');
     } else {
+        this.log.info('Setting temperature to ' + temperatureInFahrenheit + ' °F / ' + convertFahrenheitToCelsius(temperatureInFahrenheit) + ' °C');
         this.hvac.sendTemperature(temperatureInFahrenheit, _ => {
             this.log.debug('Sent Command', 'sendTemperature', temperatureInFahrenheit);
         }, err => {
@@ -147,6 +151,7 @@ Thermostat.prototype.setTemperatureDisplayUnits = function (displayUnits, cb) {
         return;
     }
     this.log.debug('setTemperatureDisplayUnits', displayUnits);
+    this.log.info('Setting temperature display units to ' + (displayUnits ? '°F' : '°C'));
     this.temperatureDisplayUnits = displayUnits;
     cb();
 };

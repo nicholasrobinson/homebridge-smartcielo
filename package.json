@@ -1,6 +1,6 @@
 {
   "name": "homebridge-smartcielo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Smartcielo (MRCOOL) plug-in for Homebridge using the smartcielo API.",
   "main": "index.js",
   "keywords": [
