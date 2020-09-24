@@ -14,7 +14,7 @@ function Thermostat(log, config) {
     this.manufacturer = config.manufacturer || 'DefaultManufacturer';
     this.model = config.model || 'DefaultModel';
     this.temperatureDisplayUnits = config.temperatureDisplayUnits || 1;
-    this.minTemperature = config.maxTemperature || 62;
+    this.minTemperature = config.minTemperature || 62;
     this.maxTemperature = config.maxTemperature || 86;
     this.commandDelay = config.commandDelay || 10;
     this.service = new Service.Thermostat(this.name);
