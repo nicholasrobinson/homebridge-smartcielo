@@ -1,6 +1,6 @@
 {
   "name": "homebridge-smartcielo",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Smartcielo (MRCOOL) plug-in for Homebridge using the smartcielo API.",
   "main": "index.js",
   "keywords": [
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "node-persist": "^2.1.0",
-    "node-smartcielo": "0.0.4"
+    "node-smartcielo": "0.0.5"
   },
   "bugs": {
     "url": "https://github.com/nicholasrobinson/homebridge-smartcielo/issues"
