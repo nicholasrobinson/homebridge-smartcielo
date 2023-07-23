@@ -2,6 +2,15 @@
 
 by Nicholas Robinson
 
+## NO LONGER MAINTAINED
+
+THIS PROJECT IS DEPRECATED
+
+> This project has been parked in favor of using MQTT and the excellent [SMARTLIGHT SLWF-01pro](https://smartlight.me/smart-home-devices/wifi-devices/wifi-dongle-air-conditioners-midea-idea-electrolux-for-home-assistant) ([alternate Link](https://www.tindie.com/products/smartlightme/wifi-dongle-for-air-conditioners-midea-electrolux/)). This achieves local network control with vastly improved reliability.
+> A big thank you to all those that contributed to this software and reported issues.
+
+# Overview
+
 Smartcielo (MRCOOL) plug-in for [Homebridge](https://github.com/nfarina/homebridge) using [node-smartcielo](https://github.com/nicholasrobinson/node-smartcielo).
 
 Integrate your MRCOOL AC into your HomeKit system.
